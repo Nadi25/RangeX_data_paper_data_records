@@ -119,7 +119,11 @@ yd_che <- yd_che |>
   select(-number_leafclusters)
 
 # yd_che has some NAs in date_measurement, why?
+# no measurements because there was no plant?
 # just delete then?
+yd_che <- yd_che |> 
+  filter(!(is.na(date_measurement) & is.na(height_vegetative) & is.na(leaf_length1)))
+
 
 
 # ZAF ---------------------------------------------------------------------
@@ -181,6 +185,20 @@ yearlydemo_zaf <- yearlydemo_zaf |>
 
 
 
+# NOR ---------------------------------------------------------------------
+# NOR.hi.warm.vege.wf.08.07.1 hi, 8a, cennig height_vegetative_str = 200 mm
+yearlydemo_nor <- yearlydemo_nor |> 
+  mutate(height_vegetative_str = if_else(
+      unique_plant_ID == "NOR.hi.warm.vege.wf.08.07.1" & 
+        species == "cennig" & date_measurement == as.Date("2023-07-20") & collector == "DE/ED",
+      200,
+      height_vegetative_str
+    )
+  )
+
+
+
+
 # convert to character for all plot_ID_original and position_ID_original -------
 yearlydemo_chn <- yearlydemo_chn |> 
   mutate(across(c(plot_ID_original, position_ID_original), as.character))
@@ -201,6 +219,15 @@ yearlydemo <- bind_rows(yearlydemo_chn, yearlydemo_che, yearlydemo_nor, yearlyde
 glimpse(yearlydemo)
 # 24,306 trait observations
 
+# add column year ---------------------------------------------------------
+yearlydemo <- yearlydemo |> 
+  mutate(year = format(date_measurement, "%Y"))
+
+
+
+
+
+# save joint dataset ------------------------------------------------------
 
 
 
