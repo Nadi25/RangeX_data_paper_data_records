@@ -51,82 +51,76 @@ ggplot(yearlydemo, aes(x = height_reproductive_str, fill = region)) +
 
 
 # split into years --------------------------------------------------------
-
-# add column year ---------------------------------------------------------
-yearly_demo <- yearlydemo |> 
-  mutate(year = format(date_measurement, "%Y"))
-
-
 # plot height_vegetative_str ----------------------------------------------
-ggplot(yearly_demo, aes(x = height_vegetative_str, fill = region)) +
+ggplot(yearlydemo, aes(x = height_vegetative_str, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_vegetative_str", y = "Density")
 
-ggplot(yearly_demo, aes(x = log(height_vegetative_str), fill = region)) +
+ggplot(yearlydemo, aes(x = log(height_vegetative_str), fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_vegetative_str", y = "Density")
 
 # plot  height_vegetative ----------------------------------------------
-ggplot(yearly_demo, aes(x = height_vegetative, fill = region)) +
+ggplot(yearlydemo, aes(x = height_vegetative, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_vegetative", y = "Density")
 
-ggplot(yearly_demo, aes(x = log(height_vegetative), fill = region)) +
+ggplot(yearlydemo, aes(x = log(height_vegetative), fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_vegetative", y = "Density")
 
 # plot  height_reproductive_str ----------------------------------------------
-ggplot(yearly_demo, aes(x = height_reproductive_str, fill = region)) +
+ggplot(yearlydemo, aes(x = height_reproductive_str, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_reproductive_str", y = "Density")
 
-ggplot(yearly_demo, aes(x = log(height_reproductive_str), fill = region)) +
+ggplot(yearlydemo, aes(x = log(height_reproductive_str), fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_reproductive_str", y = "Density")
 
 
 # plot  height_reproductive ----------------------------------------------
-ggplot(yearly_demo, aes(x = height_reproductive, fill = region)) +
+ggplot(yearlydemo, aes(x = height_reproductive, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_reproductive", y = "Density")
 
-ggplot(yearly_demo, aes(x = log(height_reproductive), fill = region)) +
+ggplot(yearlydemo, aes(x = log(height_reproductive), fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_reproductive", y = "Density")
 
 # plot leaf_length1 ----------------------------------------------
-ggplot(yearly_demo, aes(x = leaf_length1, fill = region)) +
+ggplot(yearlydemo, aes(x = leaf_length1, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "leaf_length1", y = "Density")
 
-ggplot(yearly_demo, aes(x = log(leaf_length1), fill = region)) +
+ggplot(yearlydemo, aes(x = log(leaf_length1), fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "leaf_length1", y = "Density")
 
 # plot number_leaves ----------------------------------------------
-ggplot(yearly_demo, aes(x = number_leaves, fill = region)) +
+ggplot(yearlydemo, aes(x = number_leaves, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "number_leaves", y = "Density")
 # che hypmac 7000 leaves?
 
-ggplot(yearly_demo, aes(x = log(number_leaves), fill = region)) +
+ggplot(yearlydemo, aes(x = log(number_leaves), fill = region)) +
   geom_density(alpha = 0.4) +
   labs(x = "number_leaves", y = "Density")
 
 
 ggplot(
-  yearly_demo |> 
+  yearlydemo |> 
     filter(!is.na(number_leaves), number_leaves > 0),  # remove NAs and zeros
   aes(x = log(number_leaves), y = region, fill = region)
 ) +
@@ -136,12 +130,12 @@ ggplot(
 
   
 # plot number_flowers ----------------------------------------------
-ggplot(yearly_demo, aes(x = number_flowers, fill = region)) +
+ggplot(yearlydemo, aes(x = number_flowers, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "number_flowers", y = "Density")
 
-ggplot(yearly_demo, aes(x = log(number_flowers), fill = region)) +
+ggplot(yearlydemo, aes(x = log(number_flowers), fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "number_flowers", y = "Density")
@@ -150,7 +144,7 @@ ggplot(yearly_demo, aes(x = log(number_flowers), fill = region)) +
 
 
 # height_total ------------------------------------------------------------
-ggplot(yearly_demo, aes(x = height_total, fill = region)) +
+ggplot(yearlydemo, aes(x = height_total, fill = region)) +
   geom_density(alpha = 0.4) +
   facet_wrap(~ year) +
   labs(x = "height_total", y = "Density")
