@@ -5,7 +5,7 @@
 ##            RangeX_clean_YearlyDemographics_2021_2023_CHE.csv,
 ##            RangeX_clean_YearlyDemographics_2021_2022_2023_NOR.csv,
 ##            RangeX_YearlyDemographic_ZAF.csv
-## Date:      26.10.23
+## Date:      26.10.25
 ## Author:    Nadine Arzt
 ## Purpose:   combine traits data 2021 + 2022 + 2023 from all regions for data  
 ##            records
@@ -14,6 +14,11 @@
 # problems ----------------------------------------------------------------
 # ZAF: some NA in species already in yd_zaf in the 2025-02-01 data
 # ZAF has data until 2025 --> we only want until 23 for now that is 24 in southern hemispheres
+
+# ZAF: several unique_plant_IDs have different species e.g. ZAF.hi.ambi.bare.wf.01.02.2
+# is cotplan, leuser, and NA
+
+# ZAF.lo.ambi.bare.wf.08.11.1 has leaf_length1 = 6750 mm that must be wrong
 
 
 
@@ -125,7 +130,7 @@ yd_zaf <- yd_zaf |>
 
 # combine meta data with yearly demo data per region ----------------------
 yearlydemo_chn <- yd_chn |> 
-  left_join(meta_che, by = c("unique_plant_ID", "species", 
+  left_join(meta_chn, by = c("unique_plant_ID", "species", 
                              "date_planting", "functional_group"))
 
 yearlydemo_che <- yd_che |> 
@@ -133,11 +138,11 @@ yearlydemo_che <- yd_che |>
                            "date_planting", "functional_group"))
 
 yearlydemo_nor <- yd_nor |> 
-  left_join(meta_che, by = c("unique_plant_ID", "species", 
+  left_join(meta_nor, by = c("unique_plant_ID", "species", 
                              "date_planting", "functional_group"))
 
 yearlydemo_zaf <- yd_zaf |> 
-  left_join(meta_che, by = c("unique_plant_ID", "species", 
+  left_join(meta_zaf, by = c("unique_plant_ID", "species", 
                              "date_planting", "functional_group"))
 
 
@@ -161,10 +166,19 @@ yearlydemo_chn <- yearlydemo_chn |>
   )
 
 
-# ZAF ---------------------------------------------------------------------
+# ZAF filter out 2021-24 ---------------------------------------------------------------------
 yearlydemo_zaf <- yearlydemo_zaf |> 
   filter(date_measurement >= as.Date("2021-01-01") &
            date_measurement <= as.Date("2024-12-31"))
+
+
+
+# ZAF quick fix for now ---------------------------------------------------
+# due to the mismatches of metadata and yd
+# just say region = ZAF
+yearlydemo_zaf <- yearlydemo_zaf |> 
+  mutate(region = "ZAF")
+
 
 
 # convert to character for all plot_ID_original and position_ID_original -------
@@ -184,7 +198,8 @@ yearlydemo_zaf <- yearlydemo_zaf |>
 # make one joint data set with all regions ---------------------------------
 yearlydemo <- bind_rows(yearlydemo_chn, yearlydemo_che, yearlydemo_nor, yearlydemo_zaf)
 
-
+glimpse(yearlydemo)
+# 24,306 trait observations
 
 
 
