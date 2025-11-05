@@ -22,6 +22,11 @@ glimpse(yearlydemo)
 # 24270 observations
 
 
+# how many species --------------------------------------------------------
+species_count <- unique(yearlydemo$species)
+species_count
+# 49
+
 
 # samples per region ------------------------------------------------------
 count_region <- yearlydemo |> 
