@@ -11,7 +11,7 @@
 ##            records
 
 
-# problems ----------------------------------------------------------------
+# problems to check ----------------------------------------------------------------
 # ZAF: some NA in species already in yd_zaf in the 2025-02-01 data
 # ZAF has data until 2025 --> we only want until 23 for now that is 24 in southern hemispheres
 
@@ -19,6 +19,11 @@
 # is cotplan, leuser, and NA
 
 # ZAF.lo.ambi.bare.wf.08.11.1 has leaf_length1 = 6750 mm that must be wrong
+
+# NOR.lo.ambi.bare.wf.02.15.1: leaf_length1 in 2023-07-11 is 850 mm --> wrong unit?
+# NOR.hi.warm.vege.wf.10.23.1: leaf_width = 220 , sucpra, hi10a h7 2023
+# NOR.hi.warm.vege.wf.06.28.1: cennig 2023 hi6a d9 height_vegetative_str = 1540 ", " mistake?
+
 
 
 
@@ -228,7 +233,10 @@ yearlydemo <- yearlydemo |>
 
 
 # save joint dataset ------------------------------------------------------
+write.csv(yearlydemo, "Data/YearlyDemographics/RangeX_clean_YearlyDemographics_2021-23_CHN_CHE_NOR_ZAF.csv", row.names = FALSE)
 
+## read cleaned data
+clean_yearly_demographics <- read.csv( "Data/YearlyDemographics/RangeX_clean_YearlyDemographics_2021-23_CHN_CHE_NOR_ZAF.csv")
 
 
 
