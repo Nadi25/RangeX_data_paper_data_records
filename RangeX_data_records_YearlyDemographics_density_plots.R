@@ -16,13 +16,18 @@
 library(ggridges)
 library(ggpubr)
 library(cowplot)
-theme_set(theme_bw(base_size = 25))
+theme_set(theme_bw(base_size = 40))
 
 
 # source script with joint dataset ----------------------------------------
 source("RangeX_data_records_YearlyDemographics.R")
 yearlydemo
 
+
+# calculate mean for leaf_length ------------------------------------------
+yearlydemo <- yearlydemo |> 
+  mutate(leaf_length_mean = rowMeans(across(c(leaf_length1, leaf_length2, leaf_length3)),
+                                     na.rm = TRUE))
 
 # plot height_vegetative_str ----------------------------------------------
 ggplot(yearlydemo, aes(x = height_vegetative_str, fill = region)) +
@@ -471,14 +476,6 @@ ggsave(filename = "RangeX_YearlyDemographics_all_traits_regions_years_density_pl
 
 
 
-
-# calculate mean for leaf_length ------------------------------------------
-yearlydemo <- yearlydemo |> 
-  mutate(leaf_length_mean = rowMeans(across(c(leaf_length1, leaf_length2, leaf_length3)),
-                                na.rm = TRUE))
-
-
-
 # plot --------------------------------------------------------------------
 
 traits2 <- c(
@@ -521,6 +518,17 @@ ggsave(filename = "RangeX_YearlyDemographics_all_traits_regions_years_density_pl
        width = 40, height = 30)
 
 
+all_traits2_labeled <- ggdraw() +
+  draw_plot(all_traits2) +
+  #draw_label("Traits", x = 0.5, y = 0, vjust = -1, angle = 0, size = 18) +  # x-axis
+  draw_label("Density", x = 0, y = 0.5, vjust = 1.5, angle = 90, size = 45)  # y-axis
+
+all_traits2_labeled
+
+ggsave(filename = "RangeX_YearlyDemographics_all_traits_regions_years_density_plots3.png", 
+       plot = all_traits2_labeled, 
+       path = "Data/YearlyDemographics/Plots_density_ridges/", 
+       width = 40, height = 40)
 
 
 
@@ -530,9 +538,21 @@ ggsave(filename = "RangeX_YearlyDemographics_all_traits_regions_years_density_pl
 
 
 
+# Boxplot out of interest --------------------------------------------------
+yearlydemo_long <- yearlydemo |> 
+  pivot_longer(
+    cols = all_of(traits2),   # use your traits2 vector
+    names_to = "trait",
+    values_to = "value"
+  )
 
-
-
+# quick plot of traits across regions
+ggplot(yearlydemo_long, aes(x = region, y = value, fill = region)) +
+  geom_boxplot() +
+  facet_wrap(~trait, scales = "free_y") +
+  theme_bw() +
+  labs(x = "Region", y = "Trait value") +
+  theme(legend.position = "none")
 
 
 
