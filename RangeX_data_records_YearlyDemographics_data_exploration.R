@@ -75,5 +75,60 @@ count_trait_all_regions_year
 
 
 
+# average, sd, min, max per species and trait -------------------------------------------------------
+yearlydemo_traits_summary <- yearlydemo |> 
+  group_by(species) |> 
+  summarise(
+    across(
+      where(is.numeric),
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        sd   = ~sd(.x, na.rm = TRUE),
+        min  = ~min(.x, na.rm = TRUE),
+        max  = ~max(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    )
+  )
+yearlydemo_traits_summary
+
+
+# average, sd, min, max per region and trait -------------------------------------------------------
+yearlydemo_traits_summary_region <- yearlydemo |> 
+  group_by(region) |> 
+  summarise(
+    across(
+      where(is.numeric),
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        sd   = ~sd(.x, na.rm = TRUE),
+        min  = ~min(.x, na.rm = TRUE),
+        max  = ~max(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    )
+  )
+yearlydemo_traits_summary_region
+
+
+# average, sd, per region, year and trait -------------------------------------------------------
+yearlydemo_traits_summary_region_year <- yearlydemo |> 
+  group_by(region, year) |> 
+  summarise(
+    across(
+      where(is.numeric),
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        sd   = ~sd(.x, na.rm = TRUE),
+        min  = ~min(.x, na.rm = TRUE),
+        max  = ~max(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    )
+  )
+yearlydemo_traits_summary_region_year
+
+
+
 
 
