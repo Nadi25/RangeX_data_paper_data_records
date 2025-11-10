@@ -1,13 +1,9 @@
 
 
-
-
-
-
 ## RangeX Phenology CHE, NOR data exploration
 
 ## Data used: RangeX_data_records_YearlyDemographics.R
-## Date:      04.11.25
+## Date:      07.11.25
 ## Author:    Nadine Arzt
 ## Purpose:   Explore YearlyDemographics trait data 
 ##            How many samples? per region? 
