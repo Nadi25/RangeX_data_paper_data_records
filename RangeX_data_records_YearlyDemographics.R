@@ -20,9 +20,14 @@
 
 # ZAF.lo.ambi.bare.wf.08.11.1 has leaf_length1 = 6750 mm that must be wrong
 
-# NOR.lo.ambi.bare.wf.02.15.1: leaf_length1 in 2023-07-11 is 850 mm --> wrong unit?
-# NOR.hi.warm.vege.wf.10.23.1: leaf_width = 220 , sucpra, hi10a h7 2023
+# NOR.lo.ambi.bare.wf.02.15.1: leaf_length1 in 2023-07-11 is 850 mm --> wrong unit? 
+# either 85 mm or exclude
+
+# NOR.hi.warm.vege.wf.10.23.1: leaf_width = 220 , sucpra, hi10a h7 2023 
+# exclude?
+
 # NOR.hi.warm.vege.wf.06.28.1: cennig 2023 hi6a d9 height_vegetative_str = 1540 ", " mistake?
+# maybe 15.4 cm? --> or exclude?
 
 
 
