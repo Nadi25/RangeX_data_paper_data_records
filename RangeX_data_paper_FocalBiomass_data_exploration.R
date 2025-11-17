@@ -85,12 +85,63 @@ count3
 
 
 
+# mean and sd per year, site and warming treatment -------------------------------------
+biomass_summary2 <- biomass_che |> 
+  mutate(year_from_time = lubridate::year(date_collection)) |> 
+  group_by(year_from_time, site, treat_warming) |> 
+  summarise(
+    n = n(),
+    across(
+      c(dry_mass),
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        sd   = ~sd(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    ),
+    .groups = "drop"
+  )
+biomass_summary2
 
 
 
+# mean and sd per year, site and comp treatment -------------------------------------
+biomass_summary3 <- biomass_che |> 
+  mutate(year_from_time = lubridate::year(date_collection)) |> 
+  group_by(year_from_time, site, treat_competition) |> 
+  summarise(
+    n = n(),
+    across(
+      c(dry_mass),
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        sd   = ~sd(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    ),
+    .groups = "drop"
+  )
+biomass_summary3
 
 
 
+# mean and sd per year, site and warm and comp treatment ----------------------
+biomass_summary4 <- biomass_che |> 
+  mutate(year_from_time = lubridate::year(date_collection)) |> 
+  group_by(year_from_time, site, treat_competition, treat_warming) |> 
+  summarise(
+    n = n(),
+    across(
+      c(dry_mass),
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        sd   = ~sd(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
+    ),
+    .groups = "drop"
+  )
+biomass_summary4
 
 
 
