@@ -2,7 +2,8 @@
 
 ## RangeX Root CHE data exploration
 
-## Data used: 
+## Data used: RangeX_clean_MetadataFocal_all.csv
+##            RangeX_clean_RootTraits_2023_CHE.csv
 ## Date:      07.11.25
 ## Author:    Nadine Arzt
 ## Purpose:   Explore Root trait data 
@@ -10,7 +11,12 @@
 
 
 # import metadata ---------------------------------------------------------
-meta_che <- read.csv("Data/Metadata/RangeX_clean_MetadataFocal_CHE.csv")
+metadata <- read.csv("Data/Metadata/RangeX_clean_MetadataFocal_all.csv")
+
+# filter CHE
+meta_che <- metadata |> 
+  filter(region == "CHE")
+
 
 
 # import root data -------------------------------------------------------------
