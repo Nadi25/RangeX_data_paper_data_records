@@ -55,18 +55,20 @@ climate_21_23 <- climate_21_23 |>
 
 # derive year from date_time and summarise per site × year
 climate_summary <- climate_21_23 |> 
-  mutate(year_from_time = year(date_time)) |> 
-  group_by(site, year_from_time)|> 
+  mutate(year_from_time = lubridate::year(date_time)) |> 
+  group_by(site, year_from_time) |> 
   summarise(
-    n = n(),  # count of observations
+    n = n(),
     across(
       c(AirTemp_Avg, Humidity_Avg, WindDir_Avg, WindSpd_Avg, Radiation_Avg, Rainfall),
-      ~ mean(.x, na.rm = TRUE),
-      .names = "{.col}_mean"
+      list(
+        mean = ~mean(.x, na.rm = TRUE),
+        sd   = ~sd(.x, na.rm = TRUE)
+      ),
+      .names = "{.col}_{.fn}"
     ),
     .groups = "drop"
   )
-
 climate_summary
 
 
@@ -80,4 +82,18 @@ climate_deltas <- climate_summary |>
     )
   )
 climate_deltas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
