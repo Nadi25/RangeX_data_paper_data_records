@@ -171,6 +171,12 @@ vege_all <- bind_rows(vege_che, vege_chn, vege_nor, vege_zaf_clean)
 
 
 
+# delete cover 0 ----------------------------------------------------------
+vege_all <- vege_all |>
+  filter(cover != 0)
+
+
+
 
 
 
